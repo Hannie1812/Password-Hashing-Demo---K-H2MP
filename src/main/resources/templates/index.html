@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>K-H2MP Password Hashing</title>
+    <style>
+        body { font-family: sans-serif; background: #f4f7f6; padding: 50px; }
+        .container { background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 600px; margin: auto; }
+        h2 { color: #2c3e50; text-align: center; }
+        input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background: #27ae60; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+        button:hover { background: #219150; }
+        .result { margin-top: 20px; padding: 15px; background: #e8f4fd; border-left: 5px solid #3498db; word-break: break-all; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Security Demo - Group K-H2MP</h2>
+        <form action="/calculate" method="post">
+            <input type="text" name="password" placeholder="Nhập mật khẩu thực tế..." required>
+            <input type="text" name="salt" placeholder="Nhập mã Salt (Muối)...">
+            <button type="submit">Thực hiện Hashing</button>
+        </form>
+
+        <div th:if="${sha256}" class="result">
+            <p><strong>MD5 (Lỗi thời):</strong> <br/> <span th:text="${md5}"></span></p>
+            <p><strong>SHA-256 + Salt (An toàn):</strong> <br/> <span th:text="${sha256}"></span></p>
+        </div>
+    </div>
+</body>
+</html>
