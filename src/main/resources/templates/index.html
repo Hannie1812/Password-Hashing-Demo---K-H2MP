@@ -247,7 +247,12 @@
             </div>
 
             <div class="input-group">
-                <input type="text" name="salt" placeholder="Mã Salt (ví dụ: kh2mp_2026)..." th:value="${rawSalt}">
+                <div style="display: flex; gap: 8px;">
+                    <input type="text" id="salt-input" name="salt" placeholder="Mã Salt (ví dụ: kh2mp_2026)..."
+                        th:value="${rawSalt}">
+                    <button type="button" id="generate-salt-btn" style="width: auto; padding: 0 15px; flex-shrink: 0;"
+                        title="Tạo Salt ngẫu nhiên">🎲</button>
+                </div>
                 <div class="annotation box-salt">"Muối": Giúp mã băm của mỗi người là độc nhất.</div>
             </div>
 
@@ -304,7 +309,22 @@
             updateMeter();
         }
 
-        // 2. Logic So sánh (Verify)
+        // 2. Logic Tạo Salt ngẫu nhiên
+        const saltInput = document.getElementById('salt-input');
+        const generateSaltBtn = document.getElementById('generate-salt-btn');
+
+        if (saltInput && generateSaltBtn) {
+            generateSaltBtn.addEventListener('click', () => {
+                const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+                let salt = '';
+                for (let i = 0; i < 10; i++) {
+                    salt += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                saltInput.value = salt;
+            });
+        }
+
+        // 3. Logic So sánh (Verify)
         const verifyInput = document.getElementById('verify-input');
         const verifyResult = document.getElementById('verify-result');
 
